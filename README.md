@@ -103,7 +103,12 @@ Content-Type: application/json
    `userId = [string]` <br />
    `type = [string]` <br />
    `startTime = [timestamp]` <br />
-   `endTime = [timestamp]` <br />
+   `endTime = [timestamp]`
+   
+   The format for the timestamps should be : `YYYY-MM-DDTHH:MM:SSZ`. <br />
+   Here `Z` refers to the time zone in the format of `sHH:MM` , where `s` denotes as the sign (+/-).
+   
+   * Example: `2018-10-18T21:37:30-06:00`
 
 * **Success Response:**
   
