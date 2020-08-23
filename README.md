@@ -1,11 +1,73 @@
-pendul
-
-GET http://localhost:5000/openhouse/logs
 
 
-POST {
-		"userId": "ABC123XYZ",
-		"sessionId": "XYZ456ABC",
+
+
+
+**Backend Developer**
+
+## Installation
+
+Clone this repository:
+
+```bash
+$ git clone https://github.com/Mahmud-Asif/backend-developer.git
+```
+
+Then go to the  `backend-developer` folder:
+
+```bash
+$ cd backend-developer
+```
+
+Now, you need to create a virtual environment and install all the dependencies. 
+Use Pipenv:
+
+
+```bash
+$ virtualenv venv
+$ . venv/bin/activate
+```
+
+## Run the Code
+
+```bash
+$ sh userLogs.sh
+```
+
+
+* **URL**
+
+  '/openhouse/logs'
+
+* **Method: POST**
+  
+  
+   **Required:**
+ 
+   `userId=[string]`
+   `sessionId=[string]`
+   `actions=[list_of_actions]`
+
+* **Success Response:**
+  
+  <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
+
+  * **Code:** 201 CREATED <br />
+    **Content:** [the posted log]
+ 
+* **Error Response:**
+
+  * **Code:** 400 BAD REQUEST  <br />
+    **Content:** `{ error : "Please check the parameters!!" }`
+
+* **Sample Call:**
+
+POST /openhouse/logs
+Host: localhost:5000
+Content-Type: application/json
+{
+		"userId": "test",
+		"sessionId": "XYABC",
 		"actions": [
 			{
 				"time": "2018-10-18T21:37:28-06:00",
@@ -26,8 +88,8 @@ POST {
 				"time": "2018-10-18T21:37:30-06:00",
 				"type": "NAVIGATE",
 				"properties": {
-					"pageFrom": "communities",
-					"pageTo": "inventory"
+					"pageFrom": "queries",
+					"pageTo": "requests"
 				}
 			}
 		]
@@ -35,61 +97,36 @@ POST {
 
 
 
-
-
-**Backend Developer**
-----
-  <_Additional information about your API call. Try to use verbs that match both request type (fetching vs modifying) and plurality (one vs multiple)._>
-
-* **URL**
-
-  '/openhouse/logs'
-
-* **Method:**
+* **Method: GET**
   
-  <_The request type_>
-
-  `GET` | `POST` | `DELETE` | `PUT`
   
-*  **URL Params**
-
-   <_If URL params exist, specify them in accordance with name mentioned in URL section. Separate into optional and required. Document data constraints._> 
-
-   **Required:**
- 
-   `id=[integer]`
-
    **Optional:**
  
-   `photo_id=[alphanumeric]`
-
-* **Data Params**
-
-  <_If making a post request, what should the body payload look like? URL Params rules apply here too._>
+   `userId = [string]`
+   `type = [string]`
+   `startTime = [timestamp]`
+   `endTime = [timestamp]`
 
 * **Success Response:**
   
-  <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
-
-  * **Code:** 200 <br />
-    **Content:** `{ id : 12 }`
+  * **Code:** 200 OK <br />
+    **Content:** [the posted log]
  
 * **Error Response:**
 
-  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
-
-  * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ error : "Log in" }`
-
-  OR
-
-  * **Code:** 422 UNPROCESSABLE ENTRY <br />
-    **Content:** `{ error : "Email Invalid" }`
+  * **Code:** 404 NOT FOUND  <br />
+    **Content:** `{ "error": "User id not found" }`
+		 `{ "error": "Action type not found"}`
+		 `{"error": "No action found in this time frame"}`
 
 * **Sample Call:**
 
-  <_Just a sample call to your endpoint in a runnable format ($.ajax call or a curl request) - this makes life easier and more predictable._> 
+GET /openhouse/logs
 
-* **Notes:**
+   * **Parameters**
+	`userId:test`
+	`type:CLICK`
+	`startTime:2018-10-18T21:37:28-06:00`
+	`endTime:2018-11-18T21:37:30-06:00`
 
-  <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
+
