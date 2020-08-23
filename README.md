@@ -37,7 +37,7 @@ $ sh userLogs.sh
 
 * **URL**
 
-  '/openhouse/logs'
+  `/openhouse/logs`
 
 * **Method: POST**
   
@@ -61,40 +61,40 @@ $ sh userLogs.sh
 
 * **Sample Call:**
 
-```yaml
-POST /openhouse/logs <br />
-Host: localhost:5000 <br />
-Content-Type: application/json <br />
+```json
+POST /openhouse/logs
+Host: localhost:5000
+Content-Type: application/json 
 {
-		"userId": "test", <br />
-		"sessionId": "XYABC", <br />
-		"actions": [ <br />
-			{ <br />
-				"time": "2018-10-18T21:37:28-06:00", <br />
-				"type": "CLICK", <br />
-				"properties": { <br />
-					"locationX": 52, <br />
-					"locationY": 11 <br />
-				} <br />
-			}, <br />
-			{ <br />
-				"time": "2018-10-18T21:37:30-06:00", <br />
-				"type": "VIEW", <br />
-				"properties": { <br />
-					"viewedId": "FDJKLHSLD" <br />
-				} <br />
-			}, <br />
-			{ <br />
-				"time": "2018-10-18T21:37:30-06:00", <br />
-				"type": "NAVIGATE", <br />
-				"properties": { <br />
-					"pageFrom": "queries", <br />
-					"pageTo": "requests" <br />
-				} <br />
-			} <br />
-		] <br />
-	} <br />
-
+	"userId": "te2323st",
+	"sessionId": "XsdasdC",
+	"actions": [
+		{
+			"time": "2018-10-18T21:37:28-06:00",
+			"type": "CLICK",
+			"properties": {
+				"locationX": 52,
+				"locationY": 11
+			}
+		},
+		{
+			"time": "2018-10-18T21:37:30-06:00",
+			"type": "VIEW",
+			"properties": {
+				"viewedId": "FDJKLHSLD"
+			}
+		},
+		{
+			"time": "2018-10-18T21:37:30-06:00",
+			"type": "NAVIGATE",
+			"properties": {
+				"pageFrom": "commuewerwerwernities",
+				"pageTo": "inventewrewrwreory"
+			}
+		}
+	]
+}
+```
 
 
 * **Method: GET**
@@ -121,9 +121,10 @@ Content-Type: application/json <br />
 
 * **Sample Call:**
 
-GET /openhouse/logs
+	`GET /openhouse/logs`
 
    * **Parameters**
+   
 	`userId:test` <br />
 	`type:CLICK` <br />
 	`startTime:2018-10-18T21:37:28-06:00` <br />
