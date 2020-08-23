@@ -1,142 +1,139 @@
 #!flask/bin/python
 from flask import Flask, jsonify
-from flask import abort
-from flask import make_response
 from flask import request
+import json
+import pendulum
+
 
 
 app = Flask(__name__)
 
-logs = [
-	{
-			"userId": "ABC123XYZ",
-			"sessionId": "XYZ456ABC",
-			"actions": [
-				{
-					"time": "2018-10-18T21:37:28-06:00",
-					"type": "CLICK",
-					"properties": {
-					"locationX": 52,
-						"locationY": 11
-					}
-				},
-				{
-					"time": "2018-10-18T21:37:30-06:00",
-					"type": "VIEW",
-					"properties": {
-						"viewedId": "FDJKLHSLD"
-					}
-				},
-				{
-					"time": "2018-10-18T21:37:30-06:00",
-					"type": "NAVIGATE",
-					"properties": {
-						"pageFrom": "communities",
-						"pageTo": "inventory"
-					}
-				}
-		]
-	}
-]
+logs = []
 
 
-
-
-@app.errorhandler(404)
-def not_found(error):
-	return make_response(jsonify({'error': 'Not found'}), 404)
-
-
-# @app.errorhandler(400)
-# def bad_request(error):
-#     return make_response(jsonify({'error': ""}), 400)
+### Get the logs
 
 @app.route('/openhouse/logs', methods=['GET'])
 def get_logs():
-	return jsonify({'logs': logs})
+
+	mainLog = logs
+
+	userId = request.args.get('userId', None)
+	logType = request.args.get('type', None)
+	startTime = request.args.get('startTime', None)
+	endTime = request.args.get('endTime', None)
+
+
+	if userId:
+		log = [log for log in logs if log["userId"] == userId]
+		if len(log) == 0:
+			return json.dumps({ "error": "User id not found"}), 404
+
+		mainLog=log
+
+	
+	if logType:
+		log=[]
+		for log1 in mainLog :
+			for log2 in log1["actions"]:
+				if log2["type"] == logType:
+					temp_log={
+						'userId': log1['userId'],
+						'sessionId': log1['sessionId'],
+						'actions' : [log2],
+					}
+
+					log.append(temp_log)
+
+		if len(log) == 0:
+			return json.dumps({ "error": "Action type not found"}), 404
+
+		mainLog = log
+
+
+	if startTime:
+		startTime =pendulum.parse(startTime)
+		startTime = startTime.in_tz('UTC')
+		startTime = startTime. to_datetime_string ()
+		log=[]
+		for log1 in mainLog :
+			for log2 in log1["actions"]:
+				dt = pendulum.parse(log2["time"])
+				dt = dt.in_tz('UTC')
+				dt = dt.to_datetime_string ()
+
+				if dt >= startTime :
+					temp_log={
+						'userId': log1['userId'],
+						'sessionId': log1['sessionId'],
+						'actions' : [log2],
+					}
+
+					log.append(temp_log)
+
+		if len(log) == 0:
+			return json.dumps({ "error": "No action found in this time frame"}), 404
+
+		mainLog = log
+
+	if endTime:
+		endTime = pendulum.parse(endTime)
+		endTime = endTime.in_tz('UTC')
+		endTime = endTime. to_datetime_string ()
+		log=[]
+		for log1 in mainLog :
+			for log2 in log1["actions"]:
+
+				dt = pendulum.parse(log2["time"])
+				dt = dt.in_tz('UTC')
+				dt = dt.to_datetime_string ()
+
+				if dt <= endTime :
+					temp_log={
+						'userId': log1['userId'],
+						'sessionId': log1['sessionId'],
+						'actions' : [log2],
+					}
+
+					log.append(temp_log)
+
+		if len(log) == 0:
+			return json.dumps({ "error": "No action found in this time frame"}), 404
+
+		mainLog = log
+
+	return jsonify({'logs': mainLog})
+
+
+
+### POST a new log
 
 @app.route('/openhouse/logs', methods=['POST'])
 def create_logs():
 	if not request.json or not 'userId' in request.json or not 'sessionId' in request.json or not 'actions' in request.json:
-		abort(400)
+		return json.dumps({ "error": "Please check the parameters!!"}), 400
 	log = {
 		'userId': request.json.get('userId',""),
 		'sessionId': request.json.get('sessionId',""),
 		'actions': request.json.get('actions',""),
 	}
 	logs.append(log)
+
+	with open('logs.txt', 'w') as outfile:
+		json.dump(logs, outfile)
 	return jsonify({'log': log}), 201
 
 
-@app.route('/openhouse/logs/<string:logType>', methods=['GET'])
-def get_log(logType):
-	# print (logType)
-	log = [log for log in logs["actions"] if log["type"] == logType]
-	if len(log) == 0:
-		abort(404)
-	return jsonify({'log': log[0]})
 
 if __name__ == '__main__':
+	try:
+		with open('logs.txt') as json_file:
+			logs = json.load(json_file)
+	except:
+		f = open("logs.txt", "w")
+		f.close()
+
 	app.run(debug=True)
 
 
 
-
-# #!flask/bin/python
-# from flask import Flask, jsonify
-# from flask import abort
-# from flask import make_response
-# from flask import request
-
-
-# app = Flask(__name__)
-
-# tasks = [
-#   {
-#       'id': 1,
-#       'title': u'Buy groceries',
-#       'description': u'Milk, Cheese, Pizza, Fruit, Tylenol', 
-#       'done': False
-#   },
-#   {
-#       'id': 2,
-#       'title': u'Learn Python',
-#       'description': u'Need to find a good Python tutorial on the web', 
-#       'done': False
-#   }
-# ]
-
-
-
-# @app.route('/todo/api/v1.0/tasks', methods=['POST'])
-# def create_task():
-#   if not request.json or not 'title' in request.json:
-#       abort(400)
-#   task = {
-#       'id': tasks[-1]['id'] + 1,
-#       'title': request.json['title'],
-#       'description': request.json.get('description', ""),
-#       'done': False
-#   }
-#   tasks.append(task)
-  # return jsonify({'task': task}), 201
-
-# @app.route('/todo/api/v1.0/tasks', methods=['GET'])
-# def get_tasks():
-#   return jsonify({'tasks': tasks})
-
-
-# @app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
-# def get_task(task_id):
-#   task = [task for task in tasks if task['id'] == task_id]
-#   if len(task) == 0:
-#       abort(404)
-#   return jsonify({'task': task[0]})
-
-
-# @app.errorhandler(404)
-# def not_found(error):
-#   return make_response(jsonify({'error': 'Not found'}), 404)
-
-# if __name__ == '__main__':
-#   app.run(debug=True)
