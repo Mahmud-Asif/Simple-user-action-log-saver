@@ -51,12 +51,12 @@ $ sh userLogs.sh
 * **Success Response:**
   
 
-  * **Code:** 201 CREATED <br />
+  * **Code:** `201 CREATED` <br />
     **Content:** [the posted log]
  
 * **Error Response:**
 
-  * **Code:** 400 BAD REQUEST  <br />
+  * **Code:** `400 BAD REQUEST`  <br />
     **Content:** `{ error : "Please check the parameters!!" }`
 
 * **Sample Call:**
@@ -109,12 +109,12 @@ Content-Type: application/json
 
 * **Success Response:**
   
-  * **Code:** 200 OK <br />
+  * **Code:** `200 OK` <br />
     **Content:** [the posted log]
  
 * **Error Response:**
 
-  * **Code:** 404 NOT FOUND  <br />
+  * **Code:** `404 NOT FOUND`  <br />
     **Content:** `{ "error": "User id not found" }` <br />
 		 `{ "error": "Action type not found"}` <br />
 		 `{"error": "No action found in this time frame"}` <br />
