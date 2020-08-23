@@ -62,38 +62,38 @@ $ sh userLogs.sh
 
 * **Sample Call:**
 
-POST /openhouse/logs
-Host: localhost:5000
-Content-Type: application/json
+POST /openhouse/logs <br />
+Host: localhost:5000 <br />
+Content-Type: application/json <br />
 {
-		"userId": "test",
-		"sessionId": "XYABC",
-		"actions": [
-			{
-				"time": "2018-10-18T21:37:28-06:00",
-				"type": "CLICK",
-				"properties": {
-					"locationX": 52,
-					"locationY": 11
-				}
-			},
-			{
-				"time": "2018-10-18T21:37:30-06:00",
-				"type": "VIEW",
-				"properties": {
-					"viewedId": "FDJKLHSLD"
-				}
-			},
-			{
-				"time": "2018-10-18T21:37:30-06:00",
-				"type": "NAVIGATE",
-				"properties": {
-					"pageFrom": "queries",
-					"pageTo": "requests"
-				}
-			}
-		]
-	}
+		"userId": "test", <br />
+		"sessionId": "XYABC", <br />
+		"actions": [ <br />
+			{ <br />
+				"time": "2018-10-18T21:37:28-06:00", <br />
+				"type": "CLICK", <br />
+				"properties": { <br />
+					"locationX": 52, <br />
+					"locationY": 11 <br />
+				} <br />
+			}, <br />
+			{ <br />
+				"time": "2018-10-18T21:37:30-06:00", <br />
+				"type": "VIEW", <br />
+				"properties": { <br />
+					"viewedId": "FDJKLHSLD" <br />
+				} <br />
+			}, <br />
+			{ <br />
+				"time": "2018-10-18T21:37:30-06:00", <br />
+				"type": "NAVIGATE", <br />
+				"properties": { <br />
+					"pageFrom": "queries", <br />
+					"pageTo": "requests" <br />
+				} <br />
+			} <br />
+		] <br />
+	} <br />
 
 
 
@@ -102,10 +102,10 @@ Content-Type: application/json
   
    **Optional:**
  
-   `userId = [string]`
-   `type = [string]`
-   `startTime = [timestamp]`
-   `endTime = [timestamp]`
+   `userId = [string]` <br />
+   `type = [string]` <br />
+   `startTime = [timestamp]` <br />
+   `endTime = [timestamp]` <br />
 
 * **Success Response:**
   
@@ -115,18 +115,18 @@ Content-Type: application/json
 * **Error Response:**
 
   * **Code:** 404 NOT FOUND  <br />
-    **Content:** `{ "error": "User id not found" }`
-		 `{ "error": "Action type not found"}`
-		 `{"error": "No action found in this time frame"}`
+    **Content:** `{ "error": "User id not found" }` <br />
+		 `{ "error": "Action type not found"}` <br />
+		 `{"error": "No action found in this time frame"}` <br />
 
 * **Sample Call:**
 
 GET /openhouse/logs
 
    * **Parameters**
-	`userId:test`
-	`type:CLICK`
-	`startTime:2018-10-18T21:37:28-06:00`
-	`endTime:2018-11-18T21:37:30-06:00`
+	`userId:test` <br />
+	`type:CLICK` <br />
+	`startTime:2018-10-18T21:37:28-06:00` <br />
+	`endTime:2018-11-18T21:37:30-06:00` <br />
 
 
