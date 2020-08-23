@@ -20,8 +20,6 @@ $ cd backend-developer
 ```
 
 Now, you need to create a virtual environment and install all the dependencies. 
-Use Pipenv:
-
 
 ```bash
 $ virtualenv venv
@@ -29,7 +27,7 @@ $ . venv/bin/activate
 ```
 
 ## Run the Code
-
+Use the following shell command and it will install the requirements and the code: 
 ```bash
 $ sh userLogs.sh
 ```
@@ -66,8 +64,8 @@ POST /openhouse/logs
 Host: localhost:5000
 Content-Type: application/json 
 {
-	"userId": "te2323st",
-	"sessionId": "XsdasdC",
+	"userId": "test",
+	"sessionId": "XYABC",
 	"actions": [
 		{
 			"time": "2018-10-18T21:37:28-06:00",
@@ -88,8 +86,8 @@ Content-Type: application/json
 			"time": "2018-10-18T21:37:30-06:00",
 			"type": "NAVIGATE",
 			"properties": {
-				"pageFrom": "commuewerwerwernities",
-				"pageTo": "inventewrewrwreory"
+				"pageFrom": "queries",
+				"pageTo": "request"
 			}
 		}
 	]
@@ -115,7 +113,11 @@ Content-Type: application/json
 * **Error Response:**
 
   * **Code:** `404 NOT FOUND`  <br />
-    **Content:** `{ "error": "User id not found" }` <br />
+  
+    **Content:**  
+    
+	One of the following based on the error type: <br />	
+		 `{ "error": "User id not found" }` <br />
 		 `{ "error": "Action type not found"}` <br />
 		 `{"error": "No action found in this time frame"}` <br />
 
