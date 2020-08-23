@@ -40,7 +40,7 @@ $ sh userLogs.sh
 * **Method: POST**
   
   
-   **Required:**
+   **Required Parameters:**
  
    `userId=[string]`
    `sessionId=[string]`
@@ -98,7 +98,7 @@ Content-Type: application/json
 * **Method: GET**
   
   
-   **Optional:**
+   **Optional Parameters:**
  
    `userId = [string]` <br />
    `type = [string]` <br />
@@ -123,10 +123,10 @@ Content-Type: application/json
 
 * **Sample Call:**
 
-`POST /openhouse/logs` <br />
+`GET /openhouse/logs` <br />
 `Host: localhost:5000`
 
-   * **Parameters**
+   * **Sample Parameters**
    
 	userId:test
 	type:CLICK
