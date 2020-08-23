@@ -50,7 +50,6 @@ $ sh userLogs.sh
 
 * **Success Response:**
   
-  <_What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!_>
 
   * **Code:** 201 CREATED <br />
     **Content:** [the posted log]
@@ -62,6 +61,7 @@ $ sh userLogs.sh
 
 * **Sample Call:**
 
+```yaml
 POST /openhouse/logs <br />
 Host: localhost:5000 <br />
 Content-Type: application/json <br />
