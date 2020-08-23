@@ -121,7 +121,8 @@ Content-Type: application/json
 
 * **Sample Call:**
 
-	`GET /openhouse/logs`
+`POST /openhouse/logs` <br />
+`Host: localhost:5000`
 
    * **Parameters**
    
