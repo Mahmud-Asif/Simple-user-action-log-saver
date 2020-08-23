@@ -126,9 +126,9 @@ Content-Type: application/json
 
    * **Parameters**
    
-	`userId:test` <br />
-	`type:CLICK` <br />
-	`startTime:2018-10-18T21:37:28-06:00` <br />
-	`endTime:2018-11-18T21:37:30-06:00` <br />
+	userId:test
+	type:CLICK
+	startTime:2018-10-18T21:37:28-06:00
+	endTime:2018-11-18T21:37:30-06:00
 
 
