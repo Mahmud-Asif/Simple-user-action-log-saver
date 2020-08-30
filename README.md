@@ -3,7 +3,9 @@
 
 
 
-**Backend Developer**
+**Problem Description**
+This project will take different action logs from different users and save them together. The logs can be retrieved using particular UserId, Action Type or TIme Range.
+
 
 ## Installation
 
